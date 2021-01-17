@@ -23,11 +23,11 @@ class Board:
             Rook(  0, 0, Color.WHITE, self), 
             Knight(0, 1, Color.WHITE, self),
             Bishop(0, 2, Color.WHITE, self),
-            Queen(0, 3, Color.WHITE, self),
-            King(0, 4, Color.WHITE, self),
+            Queen( 0, 3, Color.WHITE, self),
+            King(  0, 4, Color.WHITE, self),
             Bishop(0, 5, Color.WHITE, self), 
             Knight(0, 6, Color.WHITE, self), 
-            Rook(0, 7, Color.WHITE, self),
+            Rook(  0, 7, Color.WHITE, self),
         ]
 
         self.field[1] = [
@@ -110,13 +110,13 @@ class Board:
         if figure_from.color != self.current_color:
             return False
 
-        # нельзя сходить в свою уже занятую клетку
-        if figure_from.color == figure_to.color:
-            return False
-
         # проверка, что теоретически фигура может туда попасть
         if figure_from.can_move(row_new, col_new):
             return True
+        
+        # нельзя сходить в свою уже занятую клетку
+        if figure_from.color == figure_to.color:
+            return False
         
     def change_color(self):
         if self.current_color == Color.WHITE:
