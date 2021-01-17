@@ -23,11 +23,11 @@ class Board:
             Rook(  0, 0, Color.WHITE, self), 
             Knight(0, 1, Color.WHITE, self),
             Bishop(0, 2, Color.WHITE, self),
-            Queen( 0, 3, Color.WHITE, self),
-            King(  0, 4, Color.WHITE, self),
+            Queen(0, 3, Color.WHITE, self),
+            King(0, 4, Color.WHITE, self),
             Bishop(0, 5, Color.WHITE, self), 
             Knight(0, 6, Color.WHITE, self), 
-            Rook(  0, 7, Color.WHITE, self),
+            Rook(0, 7, Color.WHITE, self),
         ]
 
         self.field[1] = [
