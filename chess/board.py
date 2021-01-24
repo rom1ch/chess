@@ -6,6 +6,8 @@ from chess.colors import Color
 from chess.bishop import Bishop
 from chess.rook import Rook
 
+import logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
 
 class Board:
     """ ASCII шахматы """
@@ -17,6 +19,8 @@ class Board:
         self.current_color = Color.WHITE
         for i in range(self.FIELD_SIZE):
             self.field.append([None] * self.FIELD_SIZE)
+    
+        logging.debug(f'Создана шахматная доска с размерами: {self.FIELD_SIZE}x{self.FIELD_SIZE}')
         
         # стандартная расстановка
         self.field[0] = [
@@ -63,6 +67,8 @@ class Board:
             Rook(  7, 7, Color.BLACK, self),
         ]
 
+        logging.debug('Расстановка фигур завершена')
+
         # TODO кастомная расстановка как необязательный параметр
 
     def print(self):
@@ -95,8 +101,10 @@ class Board:
         
         # некорректная команда от игрока
         if not (0 <= col < self.FIELD_SIZE and 0 <= row < self.FIELD_SIZE and 0 <= col_new < self.FIELD_SIZE and 0 <= row_new < self.FIELD_SIZE):
+            logging.info('Невозможные координаты клетки')
             return False
         if row == row_new and col == col_new:
+            logging.info('Фигура осталась на месте')
             return False
         
         figure_from = self.field[row][col]
@@ -104,10 +112,12 @@ class Board:
         
         # нельзя сходить, если нет фигуры
         if figure_from is None:
+            logging.info('Нет фигуры в изначальной клетке')
             return False
 
         # нельзя ходить чужими фигурами
         if figure_from.color != self.current_color:
+            logging.info('Нельзя ходить чужими фигурами')
             return False
 
         # проверка, что теоретически фигура может туда попасть
@@ -116,6 +126,7 @@ class Board:
         
         # нельзя сходить в свою уже занятую клетку
         if figure_from.color == figure_to.color:
+            logging.info('Клетка занята вашей фигурой')
             return False
         
     def change_color(self):
